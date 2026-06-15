@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     // Components
     private CharacterController cc;
     private PlayerAnimController animController;
+    private PlayerCombat playerCombat;
     private Camera mainCam;
 
     // Internal state
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         animController = GetComponent<PlayerAnimController>();
+        playerCombat = GetComponent<PlayerCombat>();
         mainCam = Camera.main;
     }
 
@@ -32,12 +34,22 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
     }
 
-    // New Input System เรียก callback นี้อัตโนมัติเมื่อกด WASD
-    // ต้องผูก Input Action ชื่อ "Move" ใน Player Input component
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
         isMoving = moveInput.magnitude > 0.1f;
+    }
+
+    public void OnLightAttack(InputValue value)
+    {
+        if (value.isPressed)
+            playerCombat?.OnLightAttack();
+    }
+
+    public void OnHeavyAttack(InputValue value)
+    {
+        if (value.isPressed)
+            playerCombat?.OnHeavyAttack();
     }
 
     void ApplyMovement()
@@ -48,7 +60,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // แปลง input ให้สัมพันธ์กับทิศกล้อง
         Vector3 camForward = mainCam.transform.forward;
         Vector3 camRight   = mainCam.transform.right;
         camForward.y = 0f;
@@ -58,14 +69,11 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDir = (camForward * moveInput.y + camRight * moveInput.x);
 
-        // หมุนตัวละครให้หันตามทิศเดิน
         Quaternion targetRot = Quaternion.LookRotation(moveDir);
         transform.rotation = Quaternion.Slerp(
             transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
 
-        // ขยับจริง
         cc.Move(moveDir * moveSpeed * Time.deltaTime);
-
         animController?.SetMoving(true, moveInput.magnitude);
     }
 
