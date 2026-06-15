@@ -14,6 +14,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Dodge",
+                    "type": "Button",
+                    "id": "88b7cb38-9d32-428e-9b2a-26b027c0e233",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -82,6 +91,73 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d7cd5d75-90fd-45f4-9010-3ab2171a7d1f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "LightAttack",
+            "id": "2d829170-77ee-4507-8251-8edd02f1b04d",
+            "actions": [
+                {
+                    "name": "Button",
+                    "type": "Button",
+                    "id": "923d88e6-cdbd-4024-9201-30f6e8e7a7d8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "40283ed7-86e7-4264-8fb8-81f345307971",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "HeavyAttack",
+            "id": "cca8367a-08cd-46ec-9bc9-2178c280d107",
+            "actions": [
+                {
+                    "name": "Button",
+                    "type": "Button",
+                    "id": "a74c9466-f8af-492f-b6dd-4dda102cbf32",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1aaa0c2a-a04d-4a7b-bc1d-0a1b5276240d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
