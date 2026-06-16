@@ -23,6 +23,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LockOn",
+                    "type": "Button",
+                    "id": "afd3e070-ed58-46e1-b5a5-8dff7e06646d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LightAttack",
+                    "type": "Button",
+                    "id": "38a5435e-004c-4bce-8506-4f11d057753d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HeavyAttack",
+                    "type": "Button",
+                    "id": "07d60ea7-0a0d-48c7-a9ca-6b769b2d967c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -102,60 +129,37 @@
                     "action": "Dodge",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "LightAttack",
-            "id": "2d829170-77ee-4507-8251-8edd02f1b04d",
-            "actions": [
-                {
-                    "name": "Button",
-                    "type": "Button",
-                    "id": "923d88e6-cdbd-4024-9201-30f6e8e7a7d8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "40283ed7-86e7-4264-8fb8-81f345307971",
+                    "id": "df6d288d-4125-4e78-ad3a-8e047bdc918c",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LockOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb6bc0c4-dd7e-4417-933e-b56945187c48",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Button",
+                    "action": "LightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "HeavyAttack",
-            "id": "cca8367a-08cd-46ec-9bc9-2178c280d107",
-            "actions": [
-                {
-                    "name": "Button",
-                    "type": "Button",
-                    "id": "a74c9466-f8af-492f-b6dd-4dda102cbf32",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "1aaa0c2a-a04d-4a7b-bc1d-0a1b5276240d",
+                    "id": "a5765bae-d3a2-43d0-8c09-72feec0859dc",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Button",
+                    "action": "HeavyAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
