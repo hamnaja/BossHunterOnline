@@ -105,10 +105,22 @@ public class BossController : MonoBehaviour
     }
 
     void PerformAttack()
-    {
-        anim?.SetTrigger("Attack");
-        Debug.Log($"[BossController] {bossData?.bossName} attacks!");
-    }
+{
+    anim?.SetTrigger("Attack");
+    Debug.Log($"[BossController] {bossData?.bossName} attacks!");
+    StartCoroutine(SimulateAttackHitbox());
+}
+
+System.Collections.IEnumerator SimulateAttackHitbox()
+{
+    // ชั่วคราว — จำลอง Animation Event จนกว่าจะมี animation จริง
+    yield return new WaitForSeconds(0.3f);
+    var hitbox = GetComponentInChildren<BossAttackTrigger>();
+    hitbox?.EnableHitbox();
+
+    yield return new WaitForSeconds(0.3f);
+    hitbox?.DisableHitbox();
+}
 
     public void ChangeState(BossState newState)
     {
