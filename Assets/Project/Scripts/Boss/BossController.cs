@@ -21,6 +21,9 @@ public class BossController : MonoBehaviour
     [SerializeField] private float detectionRange = 15f;
     [SerializeField] private float attackRange = 3f;
 
+    [Header("UI")]
+    [SerializeField] private BossHealthBarUI healthBarUI;
+
     // Components
     private BossMotor motor;
     private BossPhaseController phaseController;
@@ -30,6 +33,7 @@ public class BossController : MonoBehaviour
     // FSM State
     private BossState currentState = BossState.Spawn;
     private Transform playerTransform;
+    private bool aggroTriggered = false;
 
     // Attack cooldown
     private float attackCooldown = 0f;
@@ -67,13 +71,15 @@ public class BossController : MonoBehaviour
         switch (currentState)
         {
             case BossState.Spawn:
-                // จบ animation spawn แล้วเข้า Idle
                 ChangeState(BossState.Idle);
                 break;
 
             case BossState.Idle:
                 if (distToPlayer <= detectionRange)
+                {
+                    TriggerAggro();
                     ChangeState(BossState.Chase);
+                }
                 break;
 
             case BossState.Chase:
@@ -93,7 +99,6 @@ public class BossController : MonoBehaviour
                 break;
 
             case BossState.Enrage:
-                // Enrage เร็วขึ้น 25% ตาม GDD Section 11
                 motor.MoveTo(playerTransform.position);
                 if (distToPlayer <= attackRange && attackCooldown <= 0f)
                 {
@@ -104,23 +109,36 @@ public class BossController : MonoBehaviour
         }
     }
 
+    // เรียกครั้งแรกที่บอสเห็นผู้เล่น — โชว์ Boss Health Bar
+    void TriggerAggro()
+    {
+        if (aggroTriggered) return;
+        aggroTriggered = true;
+
+        if (healthBarUI != null)
+        {
+            string name = bossData != null ? bossData.bossName : "Boss";
+            healthBarUI.ShowAndBind(healthSystem, name);
+        }
+    }
+
     void PerformAttack()
-{
-    anim?.SetTrigger("Attack");
-    Debug.Log($"[BossController] {bossData?.bossName} attacks!");
-    StartCoroutine(SimulateAttackHitbox());
-}
+    {
+        anim?.SetTrigger("Attack");
+        Debug.Log($"[BossController] {bossData?.bossName} attacks!");
+        StartCoroutine(SimulateAttackHitbox());
+    }
 
-System.Collections.IEnumerator SimulateAttackHitbox()
-{
-    // ชั่วคราว — จำลอง Animation Event จนกว่าจะมี animation จริง
-    yield return new WaitForSeconds(0.3f);
-    var hitbox = GetComponentInChildren<BossAttackTrigger>();
-    hitbox?.EnableHitbox();
+    System.Collections.IEnumerator SimulateAttackHitbox()
+    {
+        // ชั่วคราว — จำลอง Animation Event จนกว่าจะมี animation จริง
+        yield return new WaitForSeconds(0.3f);
+        var hitbox = GetComponentInChildren<BossAttackTrigger>();
+        hitbox?.EnableHitbox();
 
-    yield return new WaitForSeconds(0.3f);
-    hitbox?.DisableHitbox();
-}
+        yield return new WaitForSeconds(0.3f);
+        hitbox?.DisableHitbox();
+    }
 
     public void ChangeState(BossState newState)
     {
