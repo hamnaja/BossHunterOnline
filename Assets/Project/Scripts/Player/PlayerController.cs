@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimController animController;
     private PlayerCombat playerCombat;
     private Camera mainCam;
-
+    private AirDashAttack airDashAttack;
     // Internal state
     private Vector3 velocity;
     private Vector2 moveInput;
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         cc = GetComponent<CharacterController>();
         animController = GetComponent<PlayerAnimController>();
         playerCombat = GetComponent<PlayerCombat>();
+        airDashAttack = GetComponent<AirDashAttack>();
         mainCam = Camera.main;
     }
 
@@ -41,10 +42,19 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnLightAttack(InputValue value)
-    {
-        if (value.isPressed)
-            playerCombat?.OnLightAttack();
-    }
+{
+    if (!value.isPressed) return;
+
+    // ถ้าอยู่กลางอากาศ = Air Attack
+    if (!cc.isGrounded)
+        airDashAttack?.TryAirAttack();
+    // ถ้ากำลังวิ่ง = Dash Attack
+    else if (IsMoving)
+        airDashAttack?.TryDashAttack();
+    // ปกติ = Combo
+    else
+        playerCombat?.OnLightAttack();
+}
 
     public void OnHeavyAttack(InputValue value)
     {
