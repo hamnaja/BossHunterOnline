@@ -36,7 +36,13 @@ public class HealthSystem : MonoBehaviour
         currentHP = Mathf.Min(currentHP + amount, maxHP);
         OnHealthChanged?.Invoke(currentHP, maxHP);
     }
-
+    public void ScaleMaxHP(float multiplier)
+{
+    maxHP = maxHP * multiplier;
+    currentHP = maxHP;
+    OnHealthChanged?.Invoke(currentHP, maxHP);
+    Debug.Log($"[HealthSystem] HP scaled to {maxHP}");
+}
     public float CurrentHP => currentHP;
     public float MaxHP => maxHP;
     public bool IsDead => currentHP <= 0f;

@@ -14,21 +14,23 @@ public class PlayerCombat : MonoBehaviour
     // Components
     private PlayerAnimController animController;
     private StaminaSystem staminaSystem;
-
+    [SerializeField] private PlayerAttackHitbox attackHitbox;
     // Combo state
     private int currentComboStep = 0;
     private float comboResetTimer = 0f;
     private bool isAttacking = false;
     private bool comboWindowOpen = false;
-
+    
     // Events — ส่งสัญญาณให้ Hitbox เปิด/ปิด แทนการเรียกตรงๆ
     public static event System.Action<int> OnAttackStart;   // int = comboStep
     public static event System.Action OnAttackEnd;
 
     void Awake()
     {
-        animController  = GetComponent<PlayerAnimController>();
-        staminaSystem   = GetComponent<StaminaSystem>();
+        animController = GetComponent<PlayerAnimController>();
+        staminaSystem  = GetComponent<StaminaSystem>();
+        
+        Debug.Log($"[PlayerCombat] attackHitbox = {attackHitbox}");
     }
 
     void Update()
@@ -82,10 +84,12 @@ public class PlayerCombat : MonoBehaviour
 
         // Active hitbox frames — เปิด combo window ให้กดต่อได้
         comboWindowOpen = true;
+        attackHitbox?.EnableHitbox();
         yield return new WaitForSeconds(0.3f);
 
         // Recovery frames
         comboWindowOpen = false;
+        attackHitbox?.DisableHitbox();
         OnAttackEnd?.Invoke();
 
         yield return new WaitForSeconds(0.2f);
