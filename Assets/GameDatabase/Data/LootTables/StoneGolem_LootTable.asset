@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df0e284463773449bfd42000c767f71, type: 3}
   m_Name: StoneGolem_LootTable
   m_EditorClassIdentifier: Assembly-CSharp::LootTableData
-  lootTableID: 0
-  drops: []
+  lootTableID: 1
+  drops:
+  - itemID: 1
+    dropChance: 0.6
+    minAmount: 5
+    maxAmount: 10

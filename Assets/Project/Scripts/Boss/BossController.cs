@@ -154,12 +154,14 @@ public class BossController : MonoBehaviour
         if (currentState == BossState.Dead) return;
         ChangeState(BossState.Enrage);
     }
-
     void OnBossDeath()
     {
         ChangeState(BossState.Dead);
         motor.Stop();
         Debug.Log($"[BossController] {bossData?.bossName} defeated!");
+        
+        // แจ้ง GameManager ว่าชนะ
+        GameManager.Instance?.PlayerWon();
     }
 
     public BossState CurrentState => currentState;
