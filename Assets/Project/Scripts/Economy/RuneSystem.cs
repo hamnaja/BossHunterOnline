@@ -46,8 +46,8 @@ public class RuneSystem : MonoBehaviour
             return false;
         }
 
+        if (InventoryManager.Instance == null) return false;
         var inventory = InventoryManager.Instance;
-        if (inventory == null) return false;
 
         int goldCost = fusionGoldCost[currentTier];
 
@@ -59,8 +59,9 @@ public class RuneSystem : MonoBehaviour
         }
 
         // เช็คว่ามีทองพอไหม
+        if (SaveSystem.Instance == null) return false;
         var saveSystem = SaveSystem.Instance;
-        if (saveSystem == null || saveSystem.CurrentData.gold < goldCost)
+        if (saveSystem.CurrentData.gold < goldCost)
         {
             Debug.Log($"[RuneSystem] Need {goldCost} gold to fuse");
             return false;

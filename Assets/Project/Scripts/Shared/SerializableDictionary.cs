@@ -1,6 +1,28 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SerializableDictionary
+[Serializable]
+public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 {
-    
+    [SerializeField] private List<TKey> keys = new List<TKey>();
+    [SerializeField] private List<TValue> values = new List<TValue>();
+
+    public void OnBeforeSerialize()
+    {
+        keys.Clear();
+        values.Clear();
+        foreach (var pair in this)
+        {
+            keys.Add(pair.Key);
+            values.Add(pair.Value);
+        }
+    }
+
+    public void OnAfterDeserialize()
+    {
+        Clear();
+        for (int i = 0; i < Math.Min(keys.Count, values.Count); i++)
+            Add(keys[i], values[i]);
+    }
 }
