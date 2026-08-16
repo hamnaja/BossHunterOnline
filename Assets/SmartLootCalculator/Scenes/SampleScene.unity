@@ -654,8 +654,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1cb72c147db6d1408224dcd1c284742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThunderWolfController
-  bossData: {fileID: 0}
-  healthBarUI: {fileID: 0}
+  bossData: {fileID: 11400000, guid: f13598c9c164c894091a922f15c51151, type: 2}
+  healthBarUI: {fileID: 522487878}
   detectionRange: 18
   attackRange: 3
   circleRadius: 8
@@ -2157,8 +2157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82096271bacf31b4cb95fabee1993a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireDragonController
-  bossData: {fileID: 0}
-  healthBarUI: {fileID: 0}
+  bossData: {fileID: 11400000, guid: d3d12093b7046574da29f9946ee0305f, type: 2}
+  healthBarUI: {fileID: 522487878}
   detectionRange: 20
   attackRange: 8
   flyHeight: 5
