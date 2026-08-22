@@ -39,7 +39,11 @@ public class BossAttackTrigger : MonoBehaviour
 
         health.TakeDamage(damageAmount, bossID);
         Debug.Log($"[BossAttack] Hit Player for {damageAmount} damage");
-
+        FloatingDamagePool.Instance?.SpawnDamageNumber(
+        other.transform.position + Vector3.up * 2f,
+        damageAmount,
+        isCrit: false,
+        isElement: false);
         // ปิด hitbox ทันทีหลังโดน ป้องกันโดนซ้ำ
         DisableHitbox();
     }

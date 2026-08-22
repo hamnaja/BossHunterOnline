@@ -50,7 +50,13 @@ public class PlayerAttackHitbox : MonoBehaviour
                 health.TakeDamage(baseDamage, 0);
                 Debug.Log($"[PlayerAttack] Hit {hit.name} for {baseDamage}");
                 return;
+                FloatingDamagePool.Instance?.SpawnDamageNumber(
+                hit.transform.position + Vector3.up * 2f,
+                baseDamage,
+                isCrit: false,
+                isElement: false);
             }
+            
         }
     }
 
