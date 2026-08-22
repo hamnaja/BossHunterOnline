@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float gravity = -20f;
+    [Header("Jump")]
+    [SerializeField] private float jumpForce = 8f;
 
     // Components
     private CharacterController cc;
@@ -19,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private Vector2 moveInput;
     private bool isMoving;
+    // jump
+    private bool isJumping = false;
 
     void Awake()
     {
@@ -42,26 +46,33 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnLightAttack(InputValue value)
-{
-    if (!value.isPressed) return;
+    {
+        if (!value.isPressed) return;
 
-    // ถ้าอยู่กลางอากาศ = Air Attack
-    if (!cc.isGrounded)
-        airDashAttack?.TryAirAttack();
-    // ถ้ากำลังวิ่ง = Dash Attack
-    else if (IsMoving)
-        airDashAttack?.TryDashAttack();
-    // ปกติ = Combo
-    else
-        playerCombat?.OnLightAttack();
-}
+        // ถ้าอยู่กลางอากาศ = Air Attack
+        if (!cc.isGrounded)
+            airDashAttack?.TryAirAttack();
+        // ถ้ากำลังวิ่ง = Dash Attack
+        else if (IsMoving)
+            airDashAttack?.TryDashAttack();
+        // ปกติ = Combo
+        else
+            playerCombat?.OnLightAttack();
+    }
 
     public void OnHeavyAttack(InputValue value)
     {
         if (value.isPressed)
             playerCombat?.OnHeavyAttack();
     }
+    public void OnJump(InputValue value)
+    {
+        if (!value.isPressed) return;
+        if (!cc.isGrounded) return;
 
+        velocity.y = jumpForce;
+        Debug.Log("[Player] Jump!");
+    }
     void ApplyMovement()
     {
         if (!isMoving)
